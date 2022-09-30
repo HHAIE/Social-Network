@@ -1,0 +1,228 @@
+{% extends "./base.html" %} {% load bootstrap4 %} {% block FriendDetail %}
+<style>
+    /* Display images of current user */
+  {% for image in userDetail.images %}
+      div[id="{{image.name}}"] {
+          background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.6)), url("/images/{{image.image}}");
+      }
+  {% endfor %}
+</style>
+
+<div class="content">
+  <!--	Navigation & Sliding Part   -->
+  <div class="container-fluid">
+    <!-- Sliding Images -->
+    <div id="testimonial-carousel" class="carousel slide" data-ride="false">
+      <div class="carousel-inner">
+        {% if user == userDetail.user.user %}
+
+        <!-- Button to add a new image -->
+        <button class="btn-primary imgAddBtn" onclick="showModal('add_image')">
+          <i class="bi bi-plus-square"></i>
+        </button>
+
+        <!-- Button to remove an image -->
+        <button
+          class="btn-primary imgDelBtn"
+          onclick="showModal('remove_image')"
+        >
+          <i class="bi bi-dash-square"></i>
+        </button>
+
+        <!-- The Canvas for adding an image  -->
+        <div id="myModal_add_image" class="modal">
+          <form
+            class="modal-content"
+            action="/add/image/"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            {% csrf_token %}
+            <div class="row py-4">
+              <div class="col-lg-12 mx-auto">
+                <!-- Upload image input-->
+                <div
+                  class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm"
+                >
+                  <input
+                    id="upload"
+                    type="file"
+                    onchange="readURL(this);"
+                    class="form-control border-0"
+                    name="images"
+                    multiple
+                  />
+                  <label
+                    id="upload-label"
+                    for="upload"
+                    class="font-weight-light text-muted"
+                    >Choose file</label
+                  >
+                  <div class="input-group-append">
+                    <label
+                      for="upload"
+                      class="btn btn-light m-0 rounded-pill px-4"
+                    >
+                      <i class="fa fa-cloud-upload mr-2 text-muted"></i
+                      ><small class="text-uppercase font-weight-bold text-muted"
+                        >Choose file</small
+                      ></label
+                    >
+                  </div>
+                </div>
+
+                <!-- Uploaded image area-->
+                <div class="image-area mt-4"></div>
+              </div>
+            </div>
+
+            <!-- Button to submit adding images -->
+            <button type="submit" class="btn btn-primary w-100">
+              Add images
+            </button>
+          </form>
+          <!-- Button to close the canvas -->
+          <span onclick="modalClose()" class="close">&times;</span>
+        </div>
+
+        <!-- The Canvas for deleting an image  -->
+        <div id="myModal_remove_image" class="modal">
+          <div class="row py-4">
+            <div class="col-lg-12 mx-auto">
+              <p class="font-italic text-white h2 text-center">
+                Click on the image you want to delete...
+              </p>
+
+              <!-- Show all available images -->
+              <div class="image-area mt-4">
+                {% for image in userDetail.images %}
+                <img
+                  onclick="javascript:window.location.replace('/remove/image/{{image.pk}}')"
+                  src="/images/{{image.thumbnail}}"
+                  class="img-fluid rounded shadow-sm mx-auto d-block"
+                />
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+          <!-- Button to close the canvas -->
+          <span onclick="modalClose()" class="close">&times;</span>
+        </div>
+        {% endif %}
+
+        <!-- Image area -->
+        {% for image in userDetail.images %}
+        <div class="carousel-item active container-fluid" id="{{image.name}}">
+          <h2 class="testimonial-text">{{image.name}}</h2>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Buttons to switch between images -->
+      <a
+        class="carousel-control-prev"
+        href="#testimonial-carousel"
+        role="button"
+        data-slide="prev"
+      >
+        <img width="100" height="80%" src="/images/arLt.png" />
+      </a>
+      <a
+        class="carousel-control-next"
+        href="#testimonial-carousel"
+        role="button"
+        data-slide="next"
+      >
+        <img width="100" height="80%" src="/images/arRt.png" />
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <!-- User data area -->
+  <div class="mx-auto col-sm-4 profile-details">
+    <h1>{{userDetail.user.user}}</h1>
+    <h2>{{userDetail.user.user.email}}</h2>
+    <h2>{{userDetail.user.birthDate}}</h2>
+  </div>
+
+  <!-- add new Post area -->
+  {% if user == userDetail.user.user %}
+  <form action="/add/post/" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <textarea
+        class="form-control"
+        id="exampleFormControlTextarea1"
+        rows="3"
+        placeholder="Add new status..."
+        name="status"
+      ></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Post Status</button>
+  </form>
+  {% endif %}
+
+  <!-- Posts area -->
+  {% for status in userDetail.statuses %}
+  <div class="row">
+    <div class="mx-auto col-sm-8">
+      <div class="card">
+        {% if user == userDetail.user.user %}
+
+        <!-- Button to edit current post -->
+        <button
+          class="btn-light statusBtn top"
+          onclick="showModal({{status.pk}})"
+        >
+          <i class="bi bi-pen"></i>
+        </button>
+
+        <!-- Button to delete current post -->
+        <button
+          class="btn-light statusBtn bottom"
+          onclick="javascript:window.location.replace('/remove/post/{{status.pk}}')"
+        >
+          <i class="bi bi-trash"></i>
+        </button>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{status.status}}</h5>
+          <p class="card-text friend-date">created : {{status.date}}</p>
+          <p class="card-text friend-date">
+            last modified: {{status.lastDate}}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {% if user == userDetail.user.user %}
+    <!-- The Canvas for editing a post  -->
+    <div id="myModal_{{status.pk}}" class="modal">
+      <form
+        class="modal-content"
+        action="/update/post/{{status.pk}}"
+        method="post"
+      >
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea
+            class="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            name="status"
+          >
+{{status.status}}</textarea
+          >
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Edit Status</button>
+      </form>
+      <!-- Button to close the canvas -->
+      <span onclick="modalClose()" class="close">&times;</span>
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

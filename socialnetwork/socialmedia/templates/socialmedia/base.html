@@ -1,0 +1,16 @@
+{% include "./header.html" %} {% include "./title.html" %}
+
+<div class="container-fluid">
+  <div class="row">
+    <!-- Friend list area -->
+    {% block FriendList %}
+    <div class="col-3" id="friend_list">{% include "./list.html"%}</div>
+    {% endblock%}
+
+    <!-- main area -->
+    <div class="col-9" class="content">
+      {% block FriendDetail %}Didn't render content{% endblock %}
+    </div>
+  </div>
+</div>
+

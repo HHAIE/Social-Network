@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-md sticky-top flex-column">
+
+    <!-- Page title -->
+    <div class="w-100 bg-primary text-white text-center">
+      <div class="navbar-header text-capitalize h1" id="header">
+        <h1 id="application_title">Social Media Network</h2>
+      </div>
+    </div>
+  
+    <div class="w-100 d-flex bg-info">
+      <!-- Page navigation menu -->
+     <ul class="navbar-nav d-flex flex-row justify-content-between mr-auto col-md-9 offset-md-1 " id="navigation">
+
+        <!-- menu if user is logged in -->
+        {% if user.is_authenticated %}
+        <li class="nav-item order-1 p-2 active">
+          <form id="search-form" class="form-inline" action="/search">
+           
+            <!-- if user is searching, make the search bar active -->
+            {% if nonfriends_list %}
+            <input class="form-control mr-sm-2" id="search-bar-active" type="search" placeholder="Search for friends..." aria-label="Search" name="search">
+            {% else %}
+            <input class="form-control mr-sm-2" id="search-bar" type="search" placeholder="Search for friends..." aria-label="Search" name="search">
+            {% endif %}
+          </form>
+          </li>
+          <li class="nav-item order-2 p-2 active">
+            <a class="nav-link text-capitalize font-weight-bold h2" href="/user/{{currentUser.pk}}"> Hello {{ user }}</a><span class="sr-only">(current)</span>
+          </li>
+          <li class="nav-item order-3 p-2 active">
+            <a class="nav-link align-middle h4 h-100" href="../logout/">Logout<span class="sr-only">(current)</span></a>
+          </li>
+        
+          <!-- menu if user is not logged in -->
+        {% else %}
+          <li class="nav-item order-1 p-2 active">
+            <a class="nav-link h4" href="../register/"> Register <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item order-2 p-2 active">
+          <a class="nav-link h4" href="../login/"> Log In <span class="sr-only">(current)</span></a>
+          </li>
+        {% endif %}
+       
+     </ul>
+     </div>
+  </nav>
+  

@@ -1,0 +1,103 @@
+{% block FriendList %} {% if user.is_authenticated %}
+<!-- List of all friends -->
+<table class="friend-list">
+  <tr>
+    <th>Friends</th>
+  </tr>
+  {% for friend in friend_list %}
+  <tr
+    class="friend-row"
+    onclick="showChat('{{friend.friendshipPK}}','{{friend.name}}')"
+  >
+    <td>
+      <!-- an image from the friend list of images  -->
+      {% for image in friend.images|slice:":1" %}
+      <div><img class="friend-image" src="/images/{{image.thumbnail}}" /></div>
+      {% endfor %}
+    </td>
+    <td>
+      <div>
+        <p class="friend-name">{{friend.name}}</p>
+        <p class="friend-date">friends since: {{friend.date}}</p>
+      </div>
+    </td>
+    <td>
+      <!-- Button to show options for each friend -->
+      <button class="btn friendBtn" onclick="showOptions('{{friend.name}}')">
+        <i class="bi bi-three-dots-vertical"></i>
+      </button>
+
+      <!-- list of options for each friend -->
+      <div class="list-group friend-options" id="options_{{friend.name}}">
+        <!-- show friend profile -->
+        <a
+          href="/user/{{friend.id}}"
+          class="list-group-item list-group-item-action"
+          >Show profile</a
+        >
+        <!-- unfriend this friend -->
+        <form action="/remove/user/{{friend.id}}" method="POST">
+          {% csrf_token %}<a
+            href="#"
+            class="list-group-item list-group-item-action"
+            onclick="this.parentNode.submit()"
+            >Unfriend</a
+          >
+        </form>
+      </div>
+    </td>
+  </tr>
+
+  <!-- Chat popup  area -->
+  <div class="chat-pop" id="chat_{{friend.name}}">
+    <!-- The friend whom the user is chatting with -->
+    <div class="friend-row" data-href="">
+      <div>
+        {% for image in friend.images|slice:":1" %}
+        <div>
+          <img class="friend-image" src="/images/{{image.thumbnail}}" />
+        </div>
+        {% endfor %}
+      </div>
+      <div>
+        <p class="friend-name">{{friend.name}}</p>
+      </div>
+    </div>
+
+    <!-- The contents of the chat -->
+    <div class="chat-box">
+      <p>{{friend.chat}}</p>
+    </div>
+
+    <!-- new chat area -->
+    <div class="chat-form">
+      <div class="input-group">
+        <input
+          id="chatInput_{{friend.name}}"
+          type="text"
+          placeholder="Type a message"
+          aria-describedby="button-addon2"
+          class="form-control rounded-0 border-0"
+        />
+        <div class="input-group-append">
+          <button
+            id="chatSend_{{friend.name}}"
+            type="submit"
+            class="btn btn-link"
+          >
+            <i class="bi bi-send"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</table>
+
+<!-- If user is not logged in -->
+{% else %}
+<h2>
+  Sign in to access the social media network <br />
+  or register a new account
+</h2>
+{% endif %} {% endblock %}

@@ -1,0 +1,327 @@
+/* General styling */
+body {
+  font-family: Sans-Serif;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+
+/* Navigation menu styling */
+a {
+  text-decoration: none;
+}
+
+.nav-link {
+  color: white;
+}
+
+.navbar {
+  padding: 0px;
+}
+
+/* Friend list styling */
+#friend_list {
+  padding-right: 0;
+  float: left;
+  border-right: 2px dashed black;
+}
+
+#friend_list > * {
+  width: 100%;
+}
+
+#friend_list td {
+  min-width: 60px;
+}
+
+.friend-row {
+  display: flex;
+  justify-content: space-around;
+}
+
+.friend-list {
+  min-width: 300px;
+}
+
+.friend-list tr {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.hover-effect {
+  cursor: pointer;
+  background-color: #bcbcbc;
+}
+
+.friend-row td {
+  flex: auto;
+}
+
+/* friend data */
+.friend-image {
+  height: 50px;
+  width: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.friend-name {
+  font-weight: 600;
+  font-style: italic;
+  font-family: serif;
+  margin: 0;
+}
+
+.friend-date {
+  font-family: ui-monospace;
+  font-size: 0.75em;
+  margin: 0;
+}
+
+/* friend options list */
+.friend-options a {
+  padding: 0.3rem;
+}
+
+.friend-options {
+  position: absolute;
+}
+
+/* User details styling */
+.profile-details {
+  text-align: center;
+}
+
+/* chat area styling */
+.chat-pop {
+  position: fixed;
+  width: 25%;
+  height: 30vh;
+  bottom: 0;
+  left: 20%;
+  z-index: 3;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: whitesmoke;
+}
+
+/* chat friend */
+.chat-pop .friend-image {
+  height: 25px;
+  width: 25px;
+  margin: 0;
+  border-radius: 50%;
+}
+
+.chat-pop .friend-row {
+  background-color: #4587cb;
+  padding-bottom: 5px;
+  position: relative;
+  height: 28px;
+}
+
+/* chat text */
+.chat-box p {
+  white-space: pre-line;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.chat-box {
+  position: relative;
+  height: calc(100% - 50px);
+  overflow-y: scroll;
+  padding-bottom: 5px;
+}
+
+/* chat input */
+.chat-form input,
+.chat-form button {
+  padding-top: 0;
+  padding-bottom: 3px;
+}
+
+.chat-form * {
+  height: 100%;
+}
+
+.chat-form {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 22px;
+}
+
+/* image area styling */
+/*------Sliding Images*/
+/* Images Caption */
+.content {
+  flex: 1 0 auto;
+}
+.testimonial-text {
+  font-size: 2vw;
+  text-transform: uppercase;
+  position: relative;
+  padding-top: 30%;
+  padding-bottom: 3%;
+}
+/* Images */
+.carousel-item {
+  width: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position-x: center;
+}
+
+#testimonial-carousel {
+  text-align: center;
+  color: #8f8f8f;
+}
+#testimonial-carousel:hover {
+  color: #fff;
+}
+
+.carousel-inner {
+  min-height: 100px;
+}
+/* Buttons */
+.imgAddBtn,
+.imgDelBtn {
+  z-index: 3;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  font-size: 2em;
+}
+
+.imgAddBtn {
+  right: 0;
+}
+
+.imgDelBtn {
+  left: 0;
+}
+
+/* Posts area styling */
+/* Post */
+.statusBtn {
+  z-index: 3;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-size: 0.8em;
+}
+
+/* buttons */
+.top {
+  right: 0;
+  top: 0;
+}
+
+.bottom {
+  right: 0;
+  bottom: 0;
+}
+
+/* Canvases styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  padding-top: 50vh;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Canvas Content */
+.modal-content {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+}
+
+/* Add Animation - Zoom in Canvases */
+.modal-content {
+  animation-name: zoom;
+  animation-duration: 0.6s;
+}
+@keyframes zoom {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Canavs Close Button */
+.close {
+  position: absolute;
+  top: 35vh;
+  right: 20vw;
+  color: #f1f1f1;
+  font-size: 5vw;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Image Add Canvas */
+#upload {
+  opacity: 0;
+}
+
+/* Images names */
+#upload-label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+}
+
+/* Images */
+.image-area {
+  border: 2px dashed rgba(255, 255, 255, 0.7);
+  padding: 1rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-area::before {
+  content: "Uploaded image result";
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+  z-index: 1;
+}
+
+.image-area img {
+  z-index: 2;
+  position: relative;
+  width: 30%;
+}
+
+/* Image remove canvas */
+#myModal_remove_image img:hover {
+  cursor: pointer;
+}

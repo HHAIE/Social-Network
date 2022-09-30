@@ -1,0 +1,30 @@
+{% extends "./base.html" %} {% block FriendDetail %}
+<table class="friend-list">
+  <!-- list of search results -->
+  <tr>
+    <th>People</th>
+  </tr>
+  {% for friend in nonfriends_list %}
+  <!-- If clicked add as friend -->
+  <tr
+    class="friend-row"
+    data-href=""
+    onclick="javascript:window.location.replace('/add/user/{{friend.user.pk}}')"
+  >
+    <td>
+      {% for image in friend.image|slice:":1" %}
+      <div><img class="friend-image" src="/images/{{image.thumbnail}}" /></div>
+      {% endfor %}
+    </td>
+    <td>
+      <div>
+        <p class="friend-name nonfriend">{{friend.user.user}}</p>
+      </div>
+    </td>
+    <td>
+      <i class="bi bi-plus-square"></i>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}
